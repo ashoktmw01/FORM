@@ -1,9 +1,9 @@
 <?php
 // Step 1: Connect to the database
 $host = "localhost";
-$username = "root";       // default for XAMPP
-$password = "";           // default is empty in XAMPP
-$database = "passenger_reserv";
+$username = "root";    // default XAMPP username
+$password = "";        // default XAMPP password is empty
+$database = "shopkeer_req";  // make sure this DB exists
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $database);
@@ -13,36 +13,31 @@ if ($conn->connect_error) {
     die("❌ Connection failed: " . $conn->connect_error);
 }
 
-// Step 2: Retrieve form data
-$fullname      = $_POST['fullname'];
-$passport      = $_POST['passport'];
-$age           = $_POST['age'];
-$gender        = $_POST['gender'];
-$email         = $_POST['email'];
-$phone         = $_POST['phone'];
-$source        = $_POST['source'];
-$destination   = $_POST['destination'];
-$journey_date  = $_POST['journey_date'];
-$class         = $_POST['class'];
-$seats         = $_POST['seats'];
+// Step 2: Get form data
+$item_name   = $_POST['item_name'];
+$item_code   = $_POST['item_code'];
+$category    = $_POST['category'];
+$quantity    = $_POST['quantity'];
+$price       = $_POST['price'];
+$supplier    = $_POST['supplier'];
+$date_added  = $_POST['date_added'];
 
-// Step 3: Insert data into the passengers table
-$sql = "INSERT INTO passenger (fullname, passport, age, gender, email, phone, source, destination, journey_date, class, seats)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+// Step 3: Insert data
+$sql = "INSERT INTO inventory (item_name, item_code, category, quantity, price, supplier, date_added)
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-// Prepare statement
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ssisssssssi", $fullname, $passport, $age, $gender, $email, $phone, $source, $destination, $journey_date, $class, $seats);
+$stmt->bind_param("sssidsd", $item_name, $item_code, $category, $quantity, $price, $supplier, $date_added);
 
-// Execute
+// Step 4: Execute and confirm
 if ($stmt->execute()) {
-    echo "<h2 style='color:green;'>✅ Reservation Successful!</h2>";
-    echo "<p>Thank you, <strong>$fullname</strong>. Your flight has been booked.</p>";
+    echo "<h3 style='color:green;'>✅ Item successfully added to inventory!</h3>";
+    echo "<p><strong>Item:</strong> $item_name<br><strong>Code:</strong> $item_code</p>";
 } else {
-    echo "<h2 style='color:red;'>❌ Error:</h2> " . $stmt->error;
+    echo "<h3 style='color:red;'>❌ Error:</h3> " . $stmt->error;
 }
 
-// Close connections
+// Step 5: Close connection
 $stmt->close();
 $conn->close();
 ?>

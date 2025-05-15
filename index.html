@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Reservation Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <form action="logic.php" method="POST">
+    <h2>Flight Passenger Reservation Form</h2>
+
+    <label for="fullname">Full Name:</label>
+    <input type="text" name="fullname" required>
+
+    <label for="passport">Passport Number:</label>
+    <input type="text" name="passport" required>
+
+    <label for="age">Age:</label>
+    <input type="number" name="age" min="0" required>
+
+    <label for="gender">Gender:</label>
+    <select name="gender" required>
+        <option value="">-- Select --</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <label for="email">Email ID:</label>
+    <input type="email" name="email" required>
+
+    <label for="phone">Mobile Number:</label>
+    <input type="tel" name="phone" pattern="[0-9]{10}" required placeholder="10-digit number">
+
+    <label for="source">From (Departure Airport):</label>
+    <input type="text" name="source" required>
+
+    <label for="destination">To (Arrival Airport):</label>
+    <input type="text" name="destination" required>
+
+    <label for="date">Date of Journey:</label>
+    <input type="date" name="journey_date" required>
+
+    <label for="class">Flight Class:</label>
+    <select name="class" required>
+        <option value="">-- Select --</option>
+        <option value="Economy">Economy</option>
+        <option value="Premium Economy">Premium Economy</option>
+        <option value="Business">Business</option>
+        <option value="First Class">First Class</option>
+    </select>
+
+    <label for="seats">Number of Passengers:</label>
+    <input type="number" name="seats" min="1" max="9" required>
+
+    <input type="submit" value="Book Flight">
+</form>
+
+
+</body>
+
+</html>
